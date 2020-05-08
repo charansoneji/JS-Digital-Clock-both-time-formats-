@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Digital CLock</title>
+        <link rel="stylesheet" type="text/css" href="sty.css">
+        <script type="text/javascript">
+            console.log("linked");
+            function load_time_in_24_hour() {
+                var date = new Date();
+                var hours=date.getHours();
+                var minutes=date.getMinutes();
+                var seconds=date.getSeconds();
+                hours=padtime(hours);
+                minutes=padtime(minutes);
+                seconds=padtime(seconds);
+                document.getElementById("24clock").innerHTML=hours+":"+minutes+":"+seconds;
+                var timeout=setInterval('load_time_in_24_hour()',1000);
+            }
+            function padtime(digit){
+                if(digit<10){
+                    digit="0"+digit;
+                    return digit;
+                }
+                else{
+                    return digit;
+                }
+            } 
+            function load_time_in_12_hour() {
+                var date2 = new Date();
+                var hours2=date2.getHours();
+                var minutes2=date2.getMinutes();
+                var seconds2=date2.getSeconds();
+                if(hours2>12){
+                    hours2=hours2-12;
+                }
+                //console.log(hours);
+                hours2=padtime(hours2);
+                minutes2=padtime(minutes2);
+                seconds2=padtime(seconds2);
+                document.getElementById("12clock").innerHTML=hours2+":"+minutes2+":"+seconds2;
+                var timeout=setInterval('load_time_in_12_hour()',1000);
+            }
+
+        </script>
+        
+    </head>
+    <body>
+        <h3 align="center">Welcome to my digital clock</h3>
+        <p align="center">Please click on the buttons below to display 24 hour time format or 1 hour time format.</p>
+        <div id="24clock" align="center">
+            <button onclick="load_time_in_24_hour()">24 Hour Format</button>
+        </div>
+        <div id="12clock" align="center">
+            <button onclick="load_time_in_12_hour()">12 Hour Format</button>
+        </div>
+        <div class="clock">
+            <div class="analog">
+                <div class="hour">
+                    <div class="hr" id="hr"></div>
+                </div>
+                <div class="min">
+                        <div class="mn" id="mn"></div>
+                </div>
+                <div class="sec">
+                    <div class="sc" id="sc"></div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            const deg=6;
+            const hr=document.querySelector("#hr");
+            const mn=document.querySelector("#mn");
+            const sc=document.querySelector("#sc");
+            setInterval(()=>{
+                let day = new Date();
+                let hh=day.getHours()*30;
+                let mm=day.getMinutes()*deg;
+                let ss = day.getSeconds()*deg;
+                hr.style.transform = `rotateZ(${hh+(mm/12)}deg)`;
+                mn.style.transoform = `rotateZ(${mm}deg)`;
+                sc.style.transoform = `rotateZ(${ss}deg)`;
+            })
+        </script>
+    </body>
+</html>
